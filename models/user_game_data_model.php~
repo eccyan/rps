@@ -1,0 +1,48 @@
+<?php
+require_once('./models/model.php');
+/**
+ * Own Game Data Model Class 
+ */
+class OwnGameDataModel extends Model {
+    var $table;
+    
+    function __construct() {
+	parent::__construct();
+	
+    	$this->table->name = 'user_game_datas';
+   	$this->table->fields = null;
+
+	$fields = mysql_query("SHOW COLUMNS FROM {$this->table->name}")
+	    or die ( " Could not get columns. ".mysql_error() );
+
+	$this->table->fields = $fields;
+    }
+
+    function create($values) {
+	if ( empty($values) ) {
+	    die ( "Invalid arguments." );
+	}
+
+	$query = $this->getReplaceQuery($values);
+
+	// クエリ実行
+	$resouce = mysql_query( $query )
+	    or die ( " Could not update or insert row. ".mysql_error() );
+
+	// AUTO_INCREMENT された ID を取得
+	$id = mysql_insert_id($this->connection);
+	if ( $id === false ) {
+	    die ( " Could not get inserted id. ".mysql_error() );
+	}
+
+	if ( empty($id) ) {
+	    $id = null;
+	}
+	
+	return $id;
+    }
+    function destroy($values) {
+	return $count;
+    }
+}
+?>
