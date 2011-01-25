@@ -13,9 +13,10 @@ class Controller {
     static $fbid = null;
 
     function __construct() {
+	$config = new ApplicationConfig();
 	$facebook = new Facebook( array(
-		'appId' => '182711508416132',
-		'secret' => '0622e8cf9660d87e56136f32f787a390',
+		'appId' => $config->id,
+		'secret' => $config->secret,
 		'cookie' => true,
 	) );
 
