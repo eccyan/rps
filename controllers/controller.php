@@ -1,6 +1,6 @@
 <?php
-require_once('./php-sdk/src/facebook.php');
-require_once('./config/config.php');
+require_once('./libs/facebook/src/facebook.php');
+require_once('./configs/common.php');
 
 
 /**

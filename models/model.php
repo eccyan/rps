@@ -1,5 +1,5 @@
 <?php
-require_once('./config/config.php');
+require_once('./configs/common.php');
 /**
  * Model Abstract Class
  */
