@@ -1,1 +1,16 @@
-At first, setting your facebook Application Id and SecretKey.
+At first, setting your facebook App Id and App Secret.
+Create app.php in configs and create class this.
+
+<?php
+/**
+ * DatabaseConfig Class
+ */
+class ApplicationConfig {
+   function __construct() {
+        $this->id = 'Your App Id';
+        $this->secret = 'Your App Secret';
+   }
+}
+?>
+
+and change your App Id and App Secret.
