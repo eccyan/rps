@@ -1,0 +1,118 @@
+CREATE DATABASE  IF NOT EXISTS `game` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `game`;
+-- MySQL dump 10.13  Distrib 5.1.34, for apple-darwin9.5.0 (i386)
+--
+-- Host: localhost    Database: game
+-- ------------------------------------------------------
+-- Server version	5.1.52
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cards`
+--
+
+DROP TABLE IF EXISTS `cards`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cards` (
+  `id` bigint(20) unsigned NOT NULL,
+  `name` text NOT NULL,
+  `description` text,
+  `lifepoint` bigint(20) unsigned NOT NULL,
+  `offence` bigint(20) unsigned NOT NULL,
+  `defense` bigint(20) unsigned NOT NULL,
+  `card_attribute_ids` text NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cards`
+--
+
+LOCK TABLES `cards` WRITE;
+/*!40000 ALTER TABLE `cards` DISABLE KEYS */;
+INSERT INTO `cards` VALUES (1,'グー','握りこぶし。',100,50,50,'1','2011-01-19 22:02:45','2011-01-19 22:02:45'),(2,'チョキ','平和のサイン。',100,50,50,'2','2011-01-19 22:02:45','2011-01-19 22:02:45'),(3,'パー','変形自在の紙。',100,50,50,'3','2011-01-19 22:02:45','2011-01-19 22:02:45');
+/*!40000 ALTER TABLE `cards` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `card_attribute_relations`
+--
+
+DROP TABLE IF EXISTS `card_attribute_relations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `card_attribute_relations` (
+  `attribute_id` bigint(20) unsigned NOT NULL,
+  `related_attribute_id` bigint(20) unsigned NOT NULL,
+  `type` char(20) NOT NULL,
+  `datas` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`attribute_id`,`related_attribute_id`,`type`),
+  KEY `foreing_key_card_attribute_relations_related_attribute_id` (`related_attribute_id`),
+  CONSTRAINT `foreing_key_card_attribute_relations_attribute_id` FOREIGN KEY (`attribute_id`) REFERENCES `card_attributes` (`id`),
+  CONSTRAINT `foreing_key_card_attribute_relations_related_attribute_id` FOREIGN KEY (`related_attribute_id`) REFERENCES `card_attributes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `card_attribute_relations`
+--
+
+LOCK TABLES `card_attribute_relations` WRITE;
+/*!40000 ALTER TABLE `card_attribute_relations` DISABLE KEYS */;
+INSERT INTO `card_attribute_relations` VALUES (1,2,'critical',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30'),(1,3,'ineffectual',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30'),(2,1,'ineffectual',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30'),(2,3,'critical',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30'),(3,1,'critical',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30'),(3,2,'ineffectual',NULL,'2011-01-23 20:15:30','2011-01-23 20:15:30');
+/*!40000 ALTER TABLE `card_attribute_relations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `card_attributes`
+--
+
+DROP TABLE IF EXISTS `card_attributes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `card_attributes` (
+  `id` bigint(20) unsigned NOT NULL,
+  `name` text,
+  `description` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `card_attributes`
+--
+
+LOCK TABLES `card_attributes` WRITE;
+/*!40000 ALTER TABLE `card_attributes` DISABLE KEYS */;
+INSERT INTO `card_attributes` VALUES (1,'石','刃物じゃなかなか切れないぞ！','2011-01-23 20:15:20','2011-01-23 20:15:20'),(2,'刃','薄いものは切ってしまうぞ！','2011-01-23 20:15:20','2011-01-23 20:15:20'),(3,'紙','硬い物も包んでしまうぞ！','2011-01-23 20:15:20','2011-01-23 20:15:20');
+/*!40000 ALTER TABLE `card_attributes` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2011-01-29  6:03:37
